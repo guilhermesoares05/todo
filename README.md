@@ -1,1 +1,1 @@
-# todo
+Projeto bloco de notas integrado com lista de tarefas e aplicação mobile
