@@ -72,7 +72,7 @@ const Todo = () => {
                     to='/todo'
                     ref={menuTodo}
                 >
-                    <i>Lista de tarefas</i>
+                    <i>Lista de tarefas!</i>
                 </Link>
             </Typography>
 
