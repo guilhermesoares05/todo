@@ -51,7 +51,7 @@ const Home = () => {
                     //referencia para o click
                     ref={menuHome}
                 >
-                    <i>Bloco de notas</i>
+                    <i>Bloco de notas!</i>
                 </Link>
             </Typography>
 
