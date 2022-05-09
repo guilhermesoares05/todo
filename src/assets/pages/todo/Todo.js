@@ -32,7 +32,7 @@ const Todo = () => {
         <Grid
             container
             style={{
-
+                
             }}
         >
             {/*Item do menu */}
@@ -61,7 +61,7 @@ const Todo = () => {
                 variant="h6"
                 component="h6"
                 style={{
-                    display: 'none'
+                    display: 'none',
                 }}
             >
                 <Link
