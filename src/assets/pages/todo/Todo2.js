@@ -14,7 +14,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl';
 
-const Todo = () => {
+const Todo2 = () => {
     const menuHome = React.createRef();
     const menuTodo = React.createRef();
     const [value, setValue] = useState(1);
@@ -126,4 +126,4 @@ const Todo = () => {
     );
 }
 
-export default Todo;
+export default Todo2;
