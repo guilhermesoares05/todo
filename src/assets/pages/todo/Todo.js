@@ -1,9 +1,8 @@
-
 //imports react
 import React, { useState, useEffect } from 'react';
 
 //imports router
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //imports mui
 import Grid from '@mui/material/Grid';
@@ -17,7 +16,7 @@ import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl
 const Todo = () => {
     const menuHome = React.createRef();
     const menuTodo = React.createRef();
-    const [value, setValue] = useState(1);
+    const [positionMenu, setPositionMenu] = useState(1);
 
     //função que faz referencia ao item do menu
     const handleClickMenu = () => {
@@ -32,7 +31,7 @@ const Todo = () => {
         <Grid
             container
             style={{
-                
+
             }}
         >
             {/*Item do menu */}
@@ -94,9 +93,9 @@ const Todo = () => {
                 >
                     <BottomNavigation
                         showLabels
-                        value={value}
+                        value={positionMenu}
                         onChange={(event, newValue) => {
-                            setValue(newValue);
+                            setPositionMenu(newValue);
                         }}
                     >
                         <BottomNavigationAction label="Bloco de notas" icon={<TextSnippetIcon />} onClick={handleClickMenu} />
@@ -113,12 +112,12 @@ const Todo = () => {
                 alignItems="center"
                 justifyContent="center"
                 style={{
-                    heigth:'100vh'
+                    heigth: '100vh'
                 }}
             >
                 <Typography
-                variant="h1"
-                component="h1">
+                    variant="h1"
+                    component="h1">
                     Lista de tarefas
                 </Typography>
             </Grid>

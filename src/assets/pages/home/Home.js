@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 //imports router
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //imports mui
 import Grid from '@mui/material/Grid';
@@ -13,10 +13,25 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl';
 
+//import firebase
+import myApp from "../../core/firebaseConfig"
+import "firebase/compat/firestore";
+
 const Home = () => {
     const menuHome = React.createRef();
     const menuTodo = React.createRef();
-    const [value, setValue] = useState(0);
+    const [positionMenu, setPositionMenu] = useState(0);
+
+    const handleFirebaseConnection = async () => {
+        let querySnapshot = await myApp.firestore().collection("teste").get();
+        for (let doc of querySnapshot.docs) {
+            console.log("Dados do banco Teste do firebase", doc.data());
+        }
+    }
+
+    useEffect(() => {
+        handleFirebaseConnection();
+    }, []);
 
     //função que faz referencia ao item do menu
     const handleClickMenu = () => {
@@ -93,9 +108,9 @@ const Home = () => {
                 >
                     <BottomNavigation
                         showLabels
-                        value={value}
+                        value={positionMenu}
                         onChange={(event, newValue) => {
-                            setValue(newValue);
+                            setPositionMenu(newValue);
                         }}
                     >
                         <BottomNavigationAction label="Bloco de notas" icon={<TextSnippetIcon />} onClick={handleClickMenu} />
@@ -112,12 +127,12 @@ const Home = () => {
                 alignItems="center"
                 justifyContent="center"
                 style={{
-                    heigth:'100vh'
+                    heigth: '100vh'
                 }}
             >
                 <Typography
-                variant="h1"
-                component="h1">
+                    variant="h1"
+                    component="h1">
                     Bloco de notas
                 </Typography>
             </Grid>
