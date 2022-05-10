@@ -17,6 +17,9 @@ import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl
 import myApp from "../../core/firebaseConfig"
 import "firebase/compat/firestore";
 
+//campo de senha
+import InputPassword from '../components/inputPassword'
+
 const Home = () => {
     const menuHome = React.createRef();
     const menuTodo = React.createRef();
@@ -41,6 +44,7 @@ const Home = () => {
     const handleClickTodo = () => {
         menuTodo.current.click();
     }
+
 
     return (
         <Grid
@@ -123,7 +127,7 @@ const Home = () => {
             <Grid
                 container
                 item
-                direction="cloumn"
+                direction="column"
                 alignItems="center"
                 justifyContent="center"
                 style={{
@@ -135,6 +139,9 @@ const Home = () => {
                     component="h1">
                     Bloco de notas
                 </Typography>
+                <br />
+                <br />
+                <InputPassword />
             </Grid>
         </Grid>
     );
