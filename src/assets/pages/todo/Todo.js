@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 //imports mui
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -13,10 +14,21 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl';
 
+//import firebase
+import myApp from "../../core/firebaseConfig"
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
+
 const Todo = () => {
     const menuHome = React.createRef();
     const menuTodo = React.createRef();
     const [positionMenu, setPositionMenu] = useState(1);
+
+    useEffect(() => {
+        if (localStorage.getItem('currentUserDynamicsNotepad') === '') {
+            window.location.assign(window.location.origin + '/login');
+        }
+    }, []);
 
     //função que faz referencia ao item do menu
     const handleClickMenu = () => {
@@ -25,6 +37,16 @@ const Todo = () => {
     //função que faz referencia ao item do menu
     const handleClickTodo = () => {
         menuTodo.current.click();
+    }
+
+    //funão responsável por realizar o logout do usuario
+    const handleLogout = async () => {
+        myApp.auth().signOut().then(() => {
+            localStorage.setItem('currentUserDynamicsNotepad', '');
+            window.location.assign(window.location.origin + '/login');
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     return (
@@ -121,6 +143,17 @@ const Todo = () => {
                     Lista de tarefas
                 </Typography>
             </Grid>
+
+            <Button
+                color='primary'
+                variant='contained'
+                style={{
+                    width: '200px'
+                }}
+                onClick={handleLogout}
+            >
+                Sair
+            </Button>
         </Grid>
     );
 }
