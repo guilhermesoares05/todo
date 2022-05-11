@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 //imports mui
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -16,6 +17,7 @@ import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl
 //import firebase
 import myApp from "../../core/firebaseConfig"
 import "firebase/compat/firestore";
+import "firebase/compat/auth";
 
 const Home = () => {
     const menuHome = React.createRef();
@@ -30,6 +32,9 @@ const Home = () => {
     }
 
     useEffect(() => {
+        if (localStorage.getItem('currentUserDynamicsNotepad') === '') {
+            window.location.assign(window.location.origin + '/login');
+        }
         handleFirebaseConnection();
     }, []);
 
@@ -42,6 +47,15 @@ const Home = () => {
         menuTodo.current.click();
     }
 
+    //funão responsável por realizar o logout do usuario
+    const handleLogout = async () => {
+        myApp.auth().signOut().then(() => {
+            localStorage.setItem('currentUserDynamicsNotepad', '');
+            window.location.assign(window.location.origin + '/login');
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
     return (
         <Grid
@@ -136,6 +150,16 @@ const Home = () => {
                     Bloco de notas
                 </Typography>
             </Grid>
+            <Button
+                color='primary'
+                variant='contained'
+                style={{
+                    width: '200px'
+                }}
+                onClick={handleLogout}
+            >
+                Sair
+            </Button>
         </Grid>
     );
 }
