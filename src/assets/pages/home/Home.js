@@ -17,9 +17,6 @@ import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl
 import myApp from "../../core/firebaseConfig"
 import "firebase/compat/firestore";
 
-//campo de senha
-import InputPassword from '../components/inputPassword'
-
 const Home = () => {
     const menuHome = React.createRef();
     const menuTodo = React.createRef();
@@ -50,7 +47,6 @@ const Home = () => {
         <Grid
             container
             style={{
-
             }}
         >
             {/*Item do menu */}
@@ -139,9 +135,6 @@ const Home = () => {
                     component="h1">
                     Bloco de notas
                 </Typography>
-                <br />
-                <br />
-                <InputPassword />
             </Grid>
         </Grid>
     );
