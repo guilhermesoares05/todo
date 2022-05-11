@@ -1,4 +1,9 @@
+//import React e hooks
 import React from 'react';
+
+//imports mui
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { Grid, TextField, Button } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
@@ -9,8 +14,8 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-//imports css
-import Style from '../Css/style.css'
+//import css
+import "./style.css";
 
 //login components
 const Login = () => {
@@ -21,53 +26,81 @@ const Login = () => {
         weight: '',
         weightRange: '',
         showPassword: false,
-      });
-    
-      const handleChange = (prop) => (event) => {
+    });
+
+    const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
-      };
-    
-      const handleClickShowPassword = () => {
+    };
+
+    const handleClickShowPassword = () => {
         setValues({
-          ...values,
-          showPassword: !values.showPassword,
+            ...values,
+            showPassword: !values.showPassword,
         });
-      };
-    
-      const handleMouseDownPassword = (event) => {
+    };
+
+    const handleMouseDownPassword = (event) => {
         event.preventDefault();
-      };
-    return(
-        <>
-            <Grid  id='formLogin' style={Style}>
-            <Grid container
-                    item 
-                    marginTop='20vh'
-                    alignItems='center'
-                    direction='column'
-                    justify='space-between'
+    };
+    return (
+        <Grid
+            container
+            justifyContent='center'
+            alignItems='center'
+            direction='column'
+            className='pageLogin'
+            style={{
+                height: '100vh'
+            }}
+        >
+            <Grid
+                container
+                item
+                justifyContent='center'
+                alignItems='center'
+                direction='column'
+                style={{
+                    backgroundColor: '#fff',
+                    width: '350px',
+                    height: '400px',
+                    borderRadius: '10px'
+                }}
             >
-                <Grid id='logo' style={Style}>
+                <Grid
+                    className='logo'
+                    item
+                    style={{
+                        marginBottom: '15px'
+                    }}
+                >
                     <h2>Dynamics Notepad</h2>
                 </Grid>
-                <TextField 
-                    sx={{ m: 1, width: '25ch' }}
-                    id='text-form'
-                    label='email'
-                    type='email'
-                    margin='normal'
-                    inputProps={{startAdornment: (
-                        <InputAdornment position="start">
-                         <AccountCircle />
-                        </InputAdornment>
-                    ),
-                    }} 
-                />
 
-            <FormControl id='text-form' sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <Grid
+                    container
+                    item
+                    justifyContent='center'
+                    alignItems='center'
+                    direction='column'
+                >
+                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">Email</InputLabel>
+                        <OutlinedInput
+                            label='email'
+                            type='email'
+                            margin='normal'
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <AccountCircle />
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+
+                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Senha</InputLabel>
                         <OutlinedInput
-                            id="outlined-adornment-password"
+                            label="Password"
                             type={values.showPassword ? 'text' : 'password'}
                             value={values.password}
                             onChange={handleChange('password')}
@@ -83,15 +116,29 @@ const Login = () => {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Password"
                         />
                     </FormControl>
-                    <Button color='primary' variant='contained' style={{paddingLeft:'80px', paddingRight:'80px'}}>
+                </Grid>
+
+                <Grid
+                    container
+                    item
+                    justifyContent='center'
+                    alignItems='center'
+                    direction='row'
+                >
+                    <Button 
+                        color='primary' 
+                        variant='contained'
+                        style={{
+                            width:'200px'
+                        }}
+                    >
                         Login
                     </Button>
-            </Grid>                
+                </Grid>
             </Grid>
-        </>
+        </Grid>
     )
 }
 
