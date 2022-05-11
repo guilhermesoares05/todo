@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
 import Home from './assets/pages/home/Home';
 import Todo from './assets/pages/todo/Todo';
 import Login from './assets/pages/login/Login';

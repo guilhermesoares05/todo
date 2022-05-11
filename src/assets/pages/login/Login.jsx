@@ -2,9 +2,7 @@
 import React from 'react';
 
 //imports mui
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import { Grid, TextField, Button } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -16,6 +14,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 //import css
 import "./style.css";
+
+//import firebase
+import myApp from "../../core/firebaseConfig"
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
 
 //login components
 const Login = () => {
