@@ -16,7 +16,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 //import css
 import "./style.css";
@@ -25,8 +25,8 @@ import "./style.css";
 import myApp from "../../core/firebaseConfig";
 import "firebase/compat/auth";
 
-//login components
-const Login = () => {
+//cadastro components
+const Cadastro = () => {
 
     useEffect(() => {
         if (localStorage.getItem('currentUserDynamicsNotepad') !== '') {
@@ -39,6 +39,7 @@ const Login = () => {
         amount: '',
         email: '',
         password: '',
+        confirmPassword: '',
         weight: '',
         weightRange: '',
         showPassword: false,
@@ -49,6 +50,7 @@ const Login = () => {
         dialogLoginError: false,
         dialogWithoutLoginAndPassword: false
     });
+
 
     //função responsável por preencher os states de email e senha
     const handleChange = (prop) => (event) => {
@@ -68,10 +70,10 @@ const Login = () => {
         event.preventDefault();
     };
 
-    //funão responsável por realizar o login do usuario
-    const handleLogin = async () => {
-        if(values.email !== '' &&  values.password !== ''){
-            myApp.auth().signInWithEmailAndPassword(values.email, values.password)
+    //função responsável por realizar o cadastro do usuario
+    const handleCadastro = async () => {
+        if(values.email !== '' &&  values.password !== '' && values.confirmPassword !== ''){
+            myApp.auth().signInWithEmailAndPassword(values.email, values.password, values.confirmPassword)
             .then((userCredential) => {
                 setDialogs({
                     ...dialogs,
@@ -189,6 +191,28 @@ const Login = () => {
                             label="Password"
                             type={values.showPassword ? 'text' : 'password'}
                             value={values.password}
+                            onChange={handleChange('confirmPassword')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+                    
+                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">Confirme a Senha</InputLabel>
+                        <OutlinedInput
+                            label="password"
+                            type={values.showPassword ? 'text' : 'password'}
+                            value={values.confirmPassword}
                             onChange={handleChange('password')}
                             endAdornment={
                                 <InputAdornment position="end">
@@ -219,14 +243,14 @@ const Login = () => {
                         style={{
                             width: '200px'
                         }}
-                        onClick={handleLogin}
+                        onClick={handleCadastro}
                     >
-                        Login
+                        Fazer Cadastro
                     </Button>
                 </Grid>
                 <Link
                 style={{textDecoration:'none', color:'blue', fontSize:'15px', marginTop:'20px', fontFamily:'Arial'}}
-                to='/cadastro'>Ainda não tem Cadastro? / Cadastre-se</Link>
+                to='/login'>Fazer login</Link>
             </Grid>
             <Dialog
                 open={dialogs.dialogLoginSuccessfully}
@@ -283,4 +307,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Cadastro;
