@@ -16,6 +16,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import GoogleIcon from '@mui/icons-material/Google';
+
+//import router
 import { Link } from 'react-router-dom';
 
 //import css
@@ -23,6 +26,7 @@ import "./style.css";
 
 //import firebase
 import myApp from "../../core/firebaseConfig";
+import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
 //cadastro components
@@ -43,6 +47,7 @@ const Cadastro = () => {
         weight: '',
         weightRange: '',
         showPassword: false,
+        showConfirmPassword: false,
     });
 
     const [dialogs, setDialogs] = useState({
@@ -58,11 +63,18 @@ const Cadastro = () => {
     };
 
     //função responsável por alterar a visibilidade da senha
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
+    const handleClickShowPassword = (type) => {
+        if (type === 'password') {
+            setValues({
+                ...values,
+                showPassword: !values.showPassword,
+            });
+        } else if (type === 'confirmPassword') {
+            setValues({
+                ...values,
+                showConfirmPassword: !values.showConfirmPassword,
+            });
+        }
     };
 
     //função que não permite o recarregamento da pagina
@@ -72,40 +84,47 @@ const Cadastro = () => {
 
     //função responsável por realizar o cadastro do usuario
     const handleCadastro = async () => {
-        if(values.email !== '' &&  values.password !== '' && values.confirmPassword !== ''){
-            myApp.auth().signInWithEmailAndPassword(values.email, values.password, values.confirmPassword)
-            .then((userCredential) => {
+        if (values.email !== ''
+            && values.password !== ''
+            && values.confirmPassword !== ''
+        ) {
+            if (values.password === values.confirmPassword) {
+                myApp.auth().createUserWithEmailAndPassword(values.email, values.password)
+                    .then((userCredential) => {
+                        setDialogs({
+                            ...dialogs,
+                            dialogLoginSuccessfully: true
+                        })
+                        localStorage.setItem('currentUserDynamicsNotepad', userCredential.user.uid)
+                        myApp.firestore().collection("users").add({
+                            email: values.email,
+                            uid: userCredential.user.uid,
+                            isAdmin: false
+                        })
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        if (errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
+                            setDialogs({
+                                ...dialogs,
+                                dialogLoginError: true
+                            });
+                        }
+                    });
+            } else if (values.password !== values.confirmPassword) {
                 setDialogs({
                     ...dialogs,
-                    dialogLoginSuccessfully: true
+                    dialogLoginError: true
                 });
-                localStorage.setItem('currentUserDynamicsNotepad', userCredential.user.uid);
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
-                    setDialogs({
-                        ...dialogs,
-                        dialogLoginError: true
-                    });
-                }
-            });
-        }else{
+            }
+
+        } else {
             setDialogs({
                 ...dialogs,
                 dialogWithoutLoginAndPassword: true
             });
         }
-    }
-
-    //funão responsável por realizar o logout do usuario
-    const handleLogout = async () => {
-        myApp.auth().signOut().then(() => {
-            localStorage.setItem('currentUserDynamicsNotepad', '');
-        }).catch((error) => {
-            console.log(error);
-        });
     }
 
     //função responsável por fechar o dialodo
@@ -121,7 +140,7 @@ const Cadastro = () => {
                 ...dialogs,
                 dialogLoginError: false
             });
-        } else if(type === 'without login and password'){
+        } else if (type === 'without login and password') {
             setDialogs({
                 ...dialogs,
                 dialogWithoutLoginAndPassword: false
@@ -149,7 +168,6 @@ const Cadastro = () => {
                 style={{
                     backgroundColor: '#fff',
                     width: '350px',
-                    height: '400px',
                     borderRadius: '10px'
                 }}
             >
@@ -191,12 +209,12 @@ const Cadastro = () => {
                             label="Password"
                             type={values.showPassword ? 'text' : 'password'}
                             value={values.password}
-                            onChange={handleChange('confirmPassword')}
+                            onChange={handleChange('password')}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
+                                        onClick={() => handleClickShowPassword('password')}
                                         onMouseDown={handleMouseDownPassword}
                                         edge="end"
                                     >
@@ -206,23 +224,23 @@ const Cadastro = () => {
                             }
                         />
                     </FormControl>
-                    
+
                     <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Confirme a Senha</InputLabel>
                         <OutlinedInput
-                            label="password"
-                            type={values.showPassword ? 'text' : 'password'}
+                            label="confirm password"
+                            type={values.showConfirmPassword ? 'text' : 'password'}
                             value={values.confirmPassword}
-                            onChange={handleChange('password')}
+                            onChange={handleChange('confirmPassword')}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
+                                        onClick={() => handleClickShowPassword('confirmPassword')}
                                         onMouseDown={handleMouseDownPassword}
                                         edge="end"
                                     >
-                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -235,7 +253,7 @@ const Cadastro = () => {
                     item
                     justifyContent='space-around'
                     alignItems='center'
-                    direction='row'
+                    direction='column'
                 >
                     <Button
                         color='primary'
@@ -247,10 +265,27 @@ const Cadastro = () => {
                     >
                         Fazer Cadastro
                     </Button>
+
                 </Grid>
-                <Link
-                style={{textDecoration:'none', color:'blue', fontSize:'15px', marginTop:'20px', fontFamily:'Arial'}}
-                to='/login'>Fazer login</Link>
+                <Grid
+                    container
+                    item
+                    justifyContent='center'
+                    alignItems='center'
+                >
+                    <Link
+                        style={{
+                            textDecoration: 'none',
+                            color: 'blue',
+                            fontSize: '15px',
+                            marginTop: '20px',
+                            fontFamily: 'Arial'
+                        }}
+                        to='/login'
+                    >
+                        Fazer login
+                    </Link>
+                </Grid>
             </Grid>
             <Dialog
                 open={dialogs.dialogLoginSuccessfully}
@@ -261,8 +296,7 @@ const Cadastro = () => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Login realizado com sucesso! <br />
-                        Clique para avançar
+                        Usuario cadastrado com sucesso!
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -279,7 +313,7 @@ const Cadastro = () => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        email ou senha incorretos
+                        Senhas não batem
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -296,7 +330,7 @@ const Cadastro = () => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Preencha login e senha antes de tentar realizar login
+                        Preencha login e senha antes de tentar realizar cadastro
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
