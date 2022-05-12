@@ -175,10 +175,10 @@ const Cadastro = () => {
                     className='logo'
                     item
                     style={{
-                        marginBottom: '15px'
+                        marginBottom: '10px'
                     }}
                 >
-                    <h2>Dynamics Notepad</h2>
+                    <img src="./logo-dynamics-notepad.svg" alt="logo" width={120} />
                 </Grid>
 
                 <Grid
@@ -278,7 +278,8 @@ const Cadastro = () => {
                             textDecoration: 'none',
                             color: 'blue',
                             fontSize: '15px',
-                            marginTop: '20px',
+                            marginTop: '10px',
+                            marginBottom:'10px',
                             fontFamily: 'Arial'
                         }}
                         to='/login'

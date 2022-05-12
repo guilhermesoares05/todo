@@ -158,7 +158,7 @@ const Login = () => {
                         marginBottom: '15px'
                     }}
                 >
-                    <h2>Dynamics Notepad</h2>
+                    <img src="./logo-dynamics-notepad.svg" alt="logo" width={120} />
                 </Grid>
 
                 <Grid
