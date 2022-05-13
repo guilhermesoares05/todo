@@ -178,7 +178,10 @@ const Cadastro = () => {
                         marginBottom: '10px'
                     }}
                 >
-                    <img src="./logo-dynamics-notepad.svg" alt="logo" width={120} />
+                    <img src="./logo-dynamics-notepad.svg" 
+                         alt="logo" 
+                         width={120}
+                        />
                 </Grid>
 
                 <Grid
