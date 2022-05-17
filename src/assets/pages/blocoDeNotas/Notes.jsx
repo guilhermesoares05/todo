@@ -41,7 +41,7 @@ const Notes = () => {
 
         {/*acordeon */}
         <Grid style={{
-          marginTop:"50px",
+          marginTop:"40px",
           padding: "20px",
         }}>
         <Accordion>
