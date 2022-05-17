@@ -61,6 +61,7 @@ const Home = () => {
         <Grid
             container
             style={{
+
             }}
         >
             {/*Item do menu */}
