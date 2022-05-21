@@ -16,6 +16,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import theme from '../../core/theme';
 
 //import router
 import { Link } from 'react-router-dom';
@@ -31,8 +32,9 @@ import "firebase/compat/auth";
 //cadastro components
 const Cadastro = () => {
 
+    const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
     useEffect(() => {
-        if (localStorage.getItem('currentUserDynamicsNotepad') !== '') {
+        if (userId !== null) {
             window.location.assign(window.location.origin);
         }
     }, []);
@@ -167,6 +169,7 @@ const Cadastro = () => {
                 style={{
                     backgroundColor: '#fff',
                     width: '350px',
+                    paddingBottom: '15px',
                     borderRadius: '10px'
                 }}
             >
@@ -177,10 +180,10 @@ const Cadastro = () => {
                         marginBottom: '10px'
                     }}
                 >
-                    <img src="./logo-dynamics-notepad.svg" 
-                         alt="logo" 
-                         width={120}
-                        />
+                    <img src="./logo-dynamics-notepad.svg"
+                        alt="logo"
+                        width={120}
+                    />
                 </Grid>
 
                 <Grid
@@ -256,17 +259,33 @@ const Cadastro = () => {
                     justifyContent='space-around'
                     alignItems='center'
                     direction='column'
+                    spacing={2}
                 >
-                    <Button
-                        color='primary'
-                        variant='contained'
-                        style={{
-                            width: '200px'
-                        }}
-                        onClick={handleCadastro}
-                    >
-                        Fazer Cadastro
-                    </Button>
+                    <Grid item>
+                        <Button
+                            color='primary'
+                            variant='contained'
+                            style={{
+                                width: '200px'
+                            }}
+                            onClick={handleCadastro}
+                        >
+                            Fazer Cadastro
+                        </Button>
+                    </Grid>
+
+                    <Grid item>
+                        <Button
+                            color='primary'
+                            variant='contained'
+                            style={{
+                                width: '200px'
+                            }}
+                            onClick={handleCadastro}
+                        >
+                            Usar o google
+                        </Button>
+                    </Grid>
 
                 </Grid>
                 <Grid
@@ -281,7 +300,7 @@ const Cadastro = () => {
                             color: 'blue',
                             fontSize: '15px',
                             marginTop: '10px',
-                            marginBottom:'10px',
+                            marginBottom: '10px',
                             fontFamily: 'Arial'
                         }}
                         to='/login'
