@@ -16,7 +16,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import theme from '../../core/theme';
 
 //import css
 import "./style.css";
@@ -24,6 +25,7 @@ import "./style.css";
 //import firebase
 import myApp from "../../core/firebaseConfig";
 import "firebase/compat/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 //login components
 const Login = () => {
@@ -72,26 +74,26 @@ const Login = () => {
 
     //funão responsável por realizar o login do usuario
     const handleLogin = async () => {
-        if(values.email !== '' &&  values.password !== ''){
+        if (values.email !== '' && values.password !== '') {
             myApp.auth().signInWithEmailAndPassword(values.email, values.password)
-            .then((userCredential) => {
-                setDialogs({
-                    ...dialogs,
-                    dialogLoginSuccessfully: true
-                });
-                localStorage.setItem('currentUserDynamicsNotepad', userCredential.user.uid);
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
+                .then((userCredential) => {
                     setDialogs({
                         ...dialogs,
-                        dialogLoginError: true
+                        dialogLoginSuccessfully: true
                     });
-                }
-            });
-        }else{
+                    localStorage.setItem('currentUserDynamicsNotepad', userCredential.user.uid);
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode === 'auth/wrong-password' || errorCode === 'auth/user-not-found') {
+                        setDialogs({
+                            ...dialogs,
+                            dialogLoginError: true
+                        });
+                    }
+                });
+        } else {
             setDialogs({
                 ...dialogs,
                 dialogWithoutLoginAndPassword: true
@@ -99,13 +101,29 @@ const Login = () => {
         }
     }
 
-    //funão responsável por realizar o logout do usuario
-    const handleLogout = async () => {
-        myApp.auth().signOut().then(() => {
-            localStorage.setItem('currentUserDynamicsNotepad', '');
-        }).catch((error) => {
-            console.log(error);
-        });
+    const handleLoginWithGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+                console.log('Credencial', credential)
+                console.log('token',token )
+                console.log('user', user)
+                setDialogs({
+                    ...dialogs,
+                    dialogLoginSuccessfully: true
+                });
+                localStorage.setItem('currentUserDynamicsNotepad', user.uid);
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.email;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
     }
 
     //função responsável por fechar o dialodo
@@ -121,7 +139,7 @@ const Login = () => {
                 ...dialogs,
                 dialogLoginError: false
             });
-        } else if(type === 'without login and password'){
+        } else if (type === 'without login and password') {
             setDialogs({
                 ...dialogs,
                 dialogWithoutLoginAndPassword: false
@@ -149,7 +167,7 @@ const Login = () => {
                 style={{
                     backgroundColor: '#fff',
                     width: '350px',
-                    height: '400px',
+                    paddingBottom: '15px',
                     borderRadius: '10px'
                 }}
             >
@@ -213,22 +231,38 @@ const Login = () => {
                     item
                     justifyContent='space-around'
                     alignItems='center'
-                    direction='row'
+                    direction='column'
+                    spacing={2}
                 >
-                    <Button
-                        color='primary'
-                        variant='contained'
-                        style={{
-                            width: '200px'
-                        }}
-                        onClick={handleLogin}
-                    >
-                        Login
-                    </Button>
+                    <Grid item>
+                        <Button
+                            color='primary'
+                            variant='contained'
+                            style={{
+                                width: '200px'
+                            }}
+                            onClick={handleLogin}
+                        >
+                            Login
+                        </Button>
+                    </Grid>
+
+                    <Grid item>
+                        <Button
+                            color='primary'
+                            variant='contained'
+                            style={{
+                                width: '200px'
+                            }}
+                            onClick={handleLoginWithGoogle}
+                        >
+                            Usar google
+                        </Button>
+                    </Grid>
                 </Grid>
                 <Link
-                style={{textDecoration:'none', color:'blue', fontSize:'15px', marginTop:'20px', fontFamily:'Arial'}}
-                to='/cadastro'>Ainda não tem Cadastro? / Cadastre-se</Link>
+                    style={{ textDecoration: 'none', color: 'blue', fontSize: '15px', marginTop: '20px', fontFamily: 'Arial' }}
+                    to='/cadastro'>Ainda não tem Cadastro? / Cadastre-se</Link>
             </Grid>
             <Dialog
                 open={dialogs.dialogLoginSuccessfully}
