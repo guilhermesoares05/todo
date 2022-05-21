@@ -19,6 +19,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import theme from '../../core/theme';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 //imports de components
 import Header from '../components/Header';
@@ -32,6 +34,8 @@ import "firebase/compat/auth";
 const Home = () => {
 
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
+    const [userDisplayName, setUserDisplayName] = useState('');
+    const [userPhoto, setUserPhoto] = useState('');
     const [userNotes, setUserNotes] = useState([]);
     const [dialog, setDialog] = useState(false);
 
@@ -39,7 +43,7 @@ const Home = () => {
         let userNotesAux = [];
         let querySnapshot = await myApp.firestore().collection("notes").where("uid", "==", userId).get();
         console.log('Quem é vc?', querySnapshot.docs.length);
-        if(querySnapshot.docs.length > 0){
+        if (querySnapshot.docs.length > 0) {
             for (let doc of querySnapshot.docs) {
                 userNotesAux.push({
                     id: doc.id,
@@ -48,13 +52,22 @@ const Home = () => {
                 });
             }
             setUserNotes(userNotesAux);
-        }else{
+        } else {
             setUserNotes([{
                 title: 'Sem notas',
                 text: 'Cria sua primeira nota use o sistema como quiser, fique avontade ;)'
             }])
         }
     }
+
+    const userData = myApp.auth().currentUser;
+    useEffect(() => {
+        if (userData !== null) {
+            let formatName = userData.displayName === null ? [' '] : userData.displayName.split(' ');
+            setUserDisplayName(formatName.shift());
+            setUserPhoto(userData.photoURL);
+        }
+    }, [userData]);
 
     useEffect(() => {
         if (userId === null) {
@@ -64,9 +77,9 @@ const Home = () => {
     }, []);
 
     const handleDeleteNote = (id) => {
-        myApp.firestore().collection("notes").doc(id).delete().then( () => {
+        myApp.firestore().collection("notes").doc(id).delete().then(() => {
             setDialog(true);
-        } );
+        });
     }
 
     const handleGetMyNotes = () => {
@@ -95,6 +108,16 @@ const Home = () => {
                     display: "flex",
                 }}
             >
+                <Typography
+                    component="h1"
+                >
+                    {
+                        userDisplayName === '' ? '' : 'Ola ' + userDisplayName + ' seja bem vindo!'
+                    }
+                </Typography>
+                <Stack direction="row" spacing={2}>
+                    <Avatar alt="user photo" src={userPhoto} />
+                </Stack>
                 <Link to="/inserirNota" style={{
                     textDecoration: "none",
                     fontSize: "50px",
