@@ -28,8 +28,10 @@ import "firebase/compat/auth";
 //login components
 const Login = () => {
 
+    const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
+
     useEffect(() => {
-        if (localStorage.getItem('currentUserDynamicsNotepad') !== '') {
+        if (userId !== null) {
             window.location.assign(window.location.origin);
         }
     }, []);

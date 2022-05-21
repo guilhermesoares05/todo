@@ -14,7 +14,7 @@ const Header = () => {
     //funão responsável por realizar o logout do usuario
     const handleLogout = async () => {
         myApp.auth().signOut().then(() => {
-            localStorage.setItem('currentUserDynamicsNotepad', '');
+            localStorage.removeItem('currentUserDynamicsNotepad');
             window.location.assign(window.location.origin + '/login');
         }).catch((error) => {
             console.log(error);
