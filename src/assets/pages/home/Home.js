@@ -38,14 +38,22 @@ const Home = () => {
     const getMyNotes = async () => {
         let userNotesAux = [];
         let querySnapshot = await myApp.firestore().collection("notes").where("uid", "==", userId).get();
-        for (let doc of querySnapshot.docs) {
-            userNotesAux.push({
-                id: doc.id,
-                title: doc.data().title,
-                text: doc.data().text
-            });
+        console.log('Quem é vc?', querySnapshot.docs.length);
+        if(querySnapshot.docs.length > 0){
+            for (let doc of querySnapshot.docs) {
+                userNotesAux.push({
+                    id: doc.id,
+                    title: doc.data().title,
+                    text: doc.data().text
+                });
+            }
+            setUserNotes(userNotesAux);
+        }else{
+            setUserNotes([{
+                title: 'Sem notas',
+                text: 'Cria sua primeira nota use o sistema como quiser, fique avontade ;)'
+            }])
         }
-        setUserNotes(userNotesAux);
     }
 
     useEffect(() => {
