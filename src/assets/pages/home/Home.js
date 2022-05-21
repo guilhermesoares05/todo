@@ -49,7 +49,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        if (userId === '') {
+        if (userId === null) {
             window.location.assign(window.location.origin + '/login');
         }
         getMyNotes();
