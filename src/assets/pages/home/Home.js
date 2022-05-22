@@ -19,23 +19,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import theme from '../../core/theme';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 //imports de components
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 //import firebase
-import myApp from "../../core/firebaseConfig"
+import myApp from "../../core/firebaseConfig";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
 const Home = () => {
 
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
-    const [userDisplayName, setUserDisplayName] = useState('');
-    const [userPhoto, setUserPhoto] = useState('');
     const [userNotes, setUserNotes] = useState([]);
     const [dialog, setDialog] = useState(false);
 
@@ -55,19 +52,10 @@ const Home = () => {
         } else {
             setUserNotes([{
                 title: 'Sem notas',
-                text: 'Cria sua primeira nota use o sistema como quiser, fique avontade ;)'
+                text: 'Você ainda não tem notas cadastradas, fique a vontade para cadastrar!'
             }])
         }
     }
-
-    const userData = myApp.auth().currentUser;
-    useEffect(() => {
-        if (userData !== null) {
-            let formatName = userData.displayName === null ? [' '] : userData.displayName.split(' ');
-            setUserDisplayName(formatName.shift());
-            setUserPhoto(userData.photoURL);
-        }
-    }, [userData]);
 
     useEffect(() => {
         if (userId === null) {
@@ -94,6 +82,7 @@ const Home = () => {
             item
             style={{
                 display: "flex",
+                position:'relative',
             }}
         >
             {/*Item do cabeçalho */}
@@ -108,28 +97,17 @@ const Home = () => {
                     display: "flex",
                 }}
             >
-                <Typography
-                    component="h1"
-                >
-                    {
-                        userDisplayName === '' ? '' : 'Ola ' + userDisplayName + ' seja bem vindo!'
-                    }
-                </Typography>
-                <Stack direction="row" spacing={2}>
-                    <Avatar alt="user photo" src={userPhoto} />
-                </Stack>
                 <Link to="/inserirNota" style={{
-                    textDecoration: "none",
-                    fontSize: "50px",
-                    fontFamily: "arial",
-                    background: "#FF1701",
-                    width: "60px",
-                    textAlign: "center",
-                    borderRadius: "50%",
-                    color: "#fff",
+                    color:"white",
+                    display:"flex",
+                    background:"red",
+                    alignItems:"center",
+                    padding:"10px",
+                    borderRadius:"50%",
                 }}>
-                    +
+                    <AddBoxIcon />
                 </Link>
+                
             </Grid>
             {/*notas salvas*/}
             <Grid

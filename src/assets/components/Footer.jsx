@@ -32,9 +32,9 @@ const Footer = () => {
     <Grid 
         style={{
             width:"100%",
-            position: "absolute",
-            bottom: 0,
-            left: 0,
+            background: "#2e3436",
+            marginTop:'60px',
+            padding:'5px',
         }}
     >
             {/*Item do menu */}
@@ -82,13 +82,16 @@ const Footer = () => {
                             setPositionMenu(newValue);
                         }}
                         style={{
-                            background:'#BABDB6',
-                            borderRadius: '10px',
+                            background: "#2e3436",
                             
                         }}
                     >
-                        <BottomNavigationAction label="Bloco de notas" icon={<TextSnippetIcon />} onClick={handleClickMenu} />
-                        <BottomNavigationAction label="lista de tarefas" icon={<FormatListNumberedRtlIcon />} onClick={handleClickTodo} />
+                        <BottomNavigationAction label="Bloco de notas" icon={<TextSnippetIcon />} onClick={handleClickMenu} style={{
+                            color:'#fff'
+                        }} />
+                        <BottomNavigationAction label="lista de tarefas" icon={<FormatListNumberedRtlIcon />} onClick={handleClickTodo} style={{
+                            color:'#fff'
+                        }} />
                     </BottomNavigation>
                 </Box>
             </Grid>
