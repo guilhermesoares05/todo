@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 
 //import de componentes
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 //import mui
 import Grid from '@mui/material/Grid';
@@ -39,13 +39,17 @@ const NotesInsert = () => {
     };
 
     const handleAddNotes = async () => {
-        myApp.firestore().collection("notes").add({
-            uid: userId,
-            title: values.noteTitle,
-            text: values.noteText
-        }).then(() => {
-            setDialog(true);
-        });
+        if(values.noteTitle !== '' && values.noteText !== ''){
+            myApp.firestore().collection("notes").add({
+                uid: userId,
+                title: values.noteTitle,
+                text: values.noteText
+            }).then(() => {
+                setDialog(true);
+            });
+        } else {
+            alert("Campos com preenchimento obrigatório, por favor tente novamente!")
+        }
     }
 
     const handleGoHome = () => {
@@ -59,6 +63,8 @@ const NotesInsert = () => {
             container
             justifyContent="center"
             alignItems="center"
+            direction="column"
+
         >
             <Header />
             {/*titulo da nota */}
@@ -67,12 +73,11 @@ const NotesInsert = () => {
                 item
                 justifyContent="center"
                 display="flex"
-
             >
                 <Box
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 2, width: '80%' },
+                        '& > :not(style)': { m: 2, width: '80%', },
                     }}
                     noValidate
                     autoComplete="off"
@@ -99,6 +104,7 @@ const NotesInsert = () => {
                     placeholder="Digite sua nota aqui..."
                     style={{
                         width: "50%",
+                        height:'300px',
                         borderRadius: "5px",
                         padding: "5px",
                     }}

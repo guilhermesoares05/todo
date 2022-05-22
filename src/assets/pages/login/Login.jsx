@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Button } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
+import GoogleIcon from '@mui/icons-material/Google';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -247,16 +248,18 @@ const Login = () => {
                         </Button>
                     </Grid>
 
-                    <Grid item>
+                    <Grid item >
                         <Button
-                            color='primary'
                             variant='contained'
                             style={{
-                                width: '200px'
+                                width: '200px',
+                                justifyContent: 'space-between'
+
                             }}
                             onClick={handleLoginWithGoogle}
                         >
-                            Usar google
+                            <GoogleIcon />
+                            <small style={{fontFamily:'arial'}}>Faça login com o google</small>
                         </Button>
                     </Grid>
                 </Grid>
