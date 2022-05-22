@@ -274,19 +274,6 @@ const Cadastro = () => {
                         </Button>
                     </Grid>
 
-                    <Grid item>
-                        <Button
-                            color='primary'
-                            variant='contained'
-                            style={{
-                                width: '200px'
-                            }}
-                            onClick={handleCadastro}
-                        >
-                            Usar o google
-                        </Button>
-                    </Grid>
-
                 </Grid>
                 <Grid
                     container
