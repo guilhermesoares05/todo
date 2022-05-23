@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 
 //import de componentes
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 
 //import mui
 import Grid from '@mui/material/Grid';
@@ -145,7 +144,6 @@ const NotesInsert = () => {
                     <Button onClick={handleGoHome}>Voltar</Button>
                 </DialogActions>
             </Dialog>
-            <Footer />
         </Grid>
     )
 }
