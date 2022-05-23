@@ -23,7 +23,6 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 //imports de components
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 
 //import firebase
 import myApp from "../../core/firebaseConfig";
@@ -117,7 +116,7 @@ const Home = () => {
             >
                 {
                     userNotes.length != 0 ?
-                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px' }}>
+                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px', marginBottom:"20px" }}>
                             {/**Implementand map com notas do usuario */}
                             {
                                 userNotes.map((item, k) => (
@@ -191,7 +190,6 @@ const Home = () => {
                     <Button onClick={handleGetMyNotes}>Voltar</Button>
                 </DialogActions>
             </Dialog>
-            <Footer />
         </Grid>
 
 
