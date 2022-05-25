@@ -21,59 +21,52 @@ import myApp from "../../core/firebaseConfig";
 import "firebase/compat/firestore";
 
 //imports do router
-
-import {useParams} from 'react-router-dom';
-
-
-
+import { useParams } from "react-router-dom";
 
 const EditarNota = () => {
-
+    const params = useParams();
+    //state id do usuario
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
 
+    //states da nota
     const [noteTitle, setNoteTitle] = useState('');
     const [noteText, setNoteText] = useState('');
-    const [values, setValues] = useState({noteTitle, noteText});
-    const [dialog, setDialog] = useState(false);
 
-    const getNote = async () => {
-        let querySnapshot = await myApp.firestore().collection("notes").doc(userId).get();
-        setNoteTitle(querySnapshot.data().title);
-        setNoteText(querySnapshot.data().text);
-    }
+    //states dialog
+    const [dialog, setDialog] = useState(false);
     
     useEffect(()=>{
         getNote()
     }, []);
 
+    //função responsável por pegar a nota do usuario 
+    const getNote = async () => {
+        let querySnapshot = await myApp.firestore().collection("notes").doc(params.idNota).get();
+        setNoteTitle(querySnapshot.data().title);
+        setNoteText(querySnapshot.data().text);
+    }
 
-
-    //função responsável por preencher os states de titulo e texto da nota
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
-
-    const handleAddNotes = async () => {
-        if(values.noteTitle !== '' && values.noteText !== ''){
-            myApp.firestore().collection("notes").add({
-                uid: userId,
-                title: values.noteTitle,
-                text: values.noteText
+    //função responsável por alterar a nota do usuario 
+    const handleEditNotes = async () => {
+        if(noteTitle !== '' && noteText !== ''){
+            myApp.firestore().collection("notes").doc(params.idNota).update({
+                title: noteTitle,
+                text: noteText
             }).then(() => {
                 setDialog(true);
             });
-        } else {
-            alert("Campos com preenchimento obrigatório, por favor tente novamente!")
+        } else {alert("Campos com preenchimento obrigatório, por favor tente novamente!")
+            
         }
     }
 
+    //função responsavel por voltar ao inicio
     const handleGoHome = () => {
         window.location.assign(window.location.origin);
         setDialog(false);
     }
 
     return (
-
         <Grid
             container
             justifyContent="center"
@@ -101,14 +94,13 @@ const EditarNota = () => {
                         id="standard-basic"
                         label="Título da nota"
                         variant="standard"
-                        onChange={handleChange('noteTitle')}
+                        onChange={(e) => {setNoteTitle(e.target.value)}}
                         value={noteTitle}
                     />
                 </Box>
             </Grid>
 
             {/* texto da nota */}
-
             <Grid
                 container
                 item
@@ -124,7 +116,7 @@ const EditarNota = () => {
                         borderRadius: "5px",
                         padding: "5px",
                     }}
-                    onChange={handleChange('noteText')}
+                    onChange={(e) => {setNoteText(e.target.value)}}
                     value={noteText}
                 />
             </Grid>
@@ -132,7 +124,6 @@ const EditarNota = () => {
                 container
                 item
                 justifyContent="center"
-
             >
                 <Button
                     color='primary'
@@ -141,9 +132,9 @@ const EditarNota = () => {
                         width: '200px',
                         marginTop: "10px",
                     }}
-                    onClick={handleAddNotes}
+                    onClick={handleEditNotes}
                 >
-                    Salvar
+                    Editar
                 </Button>
             </Grid>
             <Dialog

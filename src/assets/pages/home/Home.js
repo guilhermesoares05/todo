@@ -32,7 +32,6 @@ import myApp from "../../core/firebaseConfig";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
-
 const Home = () => {
 
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
@@ -163,7 +162,7 @@ const Home = () => {
                                                         cursor: 'pointer'
                                                     }}
                                                 >
-                                                    <Link to="/EditarNota">
+                                                    <Link to={'editarNota/'+item.id}>
                                                     <EditIcon
                                                         theme={theme}
                                                         color='neutral'
