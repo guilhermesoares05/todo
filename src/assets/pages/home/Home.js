@@ -84,7 +84,6 @@ const Home = () => {
             item
             style={{
                 display: "flex",
-                position:'relative',
             }}
         >
             {/*Item do cabeçalho */}
@@ -102,10 +101,14 @@ const Home = () => {
                 <Link to="/inserirNota" style={{
                     color:"white",
                     display:"flex",
-                    background:"red",
+                    background:"#7b03fc",
                     alignItems:"center",
                     padding:"10px",
                     borderRadius:"50%",
+                    position:"fixed",
+                    zIndex:"1",
+                    right:5,
+                    top:140
                 }}>
                     <AddBoxIcon />
                 </Link>
@@ -119,7 +122,7 @@ const Home = () => {
             >
                 {
                     userNotes.length != 0 ?
-                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px', marginBottom:"20px"}}>
+                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px',marginTop:"100px", marginBottom:"20px"}}>
                             {/**Implementand map com notas do usuario */}
                             {
                                 userNotes.map((item, k) => (
