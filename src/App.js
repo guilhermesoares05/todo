@@ -5,6 +5,7 @@ import Todo from './assets/pages/todo/Todo';
 import Login from './assets/pages/login/Login';
 import Cadastro  from './assets/pages/cadastro/Cadastro';
 import NotesInsert from './assets/pages/inserirNota/NotesInsert';
+import EditarNota from './assets/pages/editarNota/EditarNota';
 import './style.css';
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="/inserirNota" element={<NotesInsert />} />
+      <Route path="/editarNota/:idNota" element={<EditarNota />} />
     </Routes>
   );
 }
