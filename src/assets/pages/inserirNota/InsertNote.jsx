@@ -21,7 +21,7 @@ import myApp from "../../core/firebaseConfig"
 import "firebase/compat/firestore";
 
 
-const NotesInsert = () => {
+const InsertNote = () => {
 
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
 
@@ -148,4 +148,4 @@ const NotesInsert = () => {
     )
 }
 
-export default NotesInsert;
+export default InsertNote;

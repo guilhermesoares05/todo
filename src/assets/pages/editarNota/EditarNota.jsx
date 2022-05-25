@@ -29,10 +29,15 @@ import {useParams} from 'react-router-dom';
 
 const EditarNota = () => {
 
-    const params = useParams();
+    const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
+
+    const [noteTitle, setNoteTitle] = useState('');
+    const [noteText, setNoteText] = useState('');
+    const [values, setValues] = useState({noteTitle, noteText});
+    const [dialog, setDialog] = useState(false);
 
     const getNote = async () => {
-        let querySnapshot = await myApp.firestore().collection("notes").doc(params.idNota).get();
+        let querySnapshot = await myApp.firestore().collection("notes").doc(userId).get();
         setNoteTitle(querySnapshot.data().title);
         setNoteText(querySnapshot.data().text);
     }
@@ -41,12 +46,7 @@ const EditarNota = () => {
         getNote()
     }, []);
 
-    const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
 
-    const [noteTitle, setNoteTitle] = useState('');
-    const [noteText, setNoteText] = useState('');
-    const [values, setValues] = useState({noteTitle, noteText});
-    const [dialog, setDialog] = useState(false);
 
     //função responsável por preencher os states de titulo e texto da nota
     const handleChange = (prop) => (event) => {
@@ -155,7 +155,7 @@ const EditarNota = () => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Nota cadastrada com sucesso
+                        Nota alterada com sucesso
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

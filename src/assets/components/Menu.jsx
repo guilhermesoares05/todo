@@ -96,28 +96,8 @@ export default function BasicMenu() {
                             alignItems:"center",
                         }}
                     >
-                        Bloco de notas
+                        Notas Salvas
                         <TextSnippetIcon style={{paddingLeft:"10px"}} />
-                    </span>   
-                </Link>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-            <Link to="/todo"
-                  ref={menuTodo}
-                    style={{
-                        textDecoration: 'none',
-                    }}
-                >
-                    <span
-                        style={{
-                            display:"flex",
-                            color:"black",
-                            padding:"10px",
-                            alignItems:"center",
-                        }}
-                    >
-                        Lista de tarefas
-                        <FormatListBulletedIcon style={{paddingLeft:"10px"}}  />
                     </span>   
                 </Link>
             </MenuItem>
