@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -23,11 +24,14 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 //imports de components
 import Header from '../../components/Header';
+import EditarNota from '../editarNota/EditarNota';
+
 
 //import firebase
 import myApp from "../../core/firebaseConfig";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+
 
 const Home = () => {
 
@@ -116,11 +120,11 @@ const Home = () => {
             >
                 {
                     userNotes.length != 0 ?
-                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px', marginBottom:"20px" }}>
+                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px', marginBottom:"20px"}}>
                             {/**Implementand map com notas do usuario */}
                             {
                                 userNotes.map((item, k) => (
-                                    <ListItem alignItems="flex-start" key={k} style={{ borderBottom: '1px solid #fff' }} >
+                                    <ListItem key={k} style={{ borderBottom: '1px solid #fff',justifyContent:"flex-end", flexWrap:"wrap" }} >
                                         <ListItemText
                                             primary={item.title}
                                             secondary={
@@ -142,29 +146,51 @@ const Home = () => {
                                                             {item.text}
                                                         </Typography>
                                                     </Grid>
-                                                    <Grid
-                                                        item
-                                                        container
-                                                        justifyContent="center"
-                                                        alignItems="center"
-                                                        style={{
-                                                            width: '40px',
-                                                            height: '40px',
-                                                            backgroundColor: '#f00',
-                                                            borderRadius: '20px',
-                                                            cursor: 'pointer'
-                                                        }}
-                                                    >
-                                                        <DeleteIcon
-                                                            theme={theme}
-                                                            onClick={() => handleDeleteNote(item.id)}
-                                                            color='neutral'
-                                                        />
-                                                    </Grid>
                                                 </Grid>
                                             }
-                                        />
-                                    </ListItem>
+                                        /> 
+                                                <Grid
+                                                    item
+                                                    container
+                                                    justifyContent="center"
+                                                    alignItems="center"
+                                                    style={{
+                                                        width: '40px',
+                                                        height: '40px',
+                                                        marginLeft:"10px",
+                                                        backgroundColor: 'green',
+                                                        borderRadius: '20px',
+                                                        cursor: 'pointer'
+                                                    }}
+                                                >
+                                                    <Link to="/EditarNota">
+                                                    <EditIcon
+                                                        theme={theme}
+                                                        color='neutral'
+                                                    />                                                    
+                                                    </Link>
+                                                </Grid>                                          
+                                                <Grid
+                                                    item
+                                                    container
+                                                    justifyContent="center"
+                                                    alignItems="center"
+                                                    style={{
+                                                        width: '40px',
+                                                        height: '40px',
+                                                        marginLeft:"10px",
+                                                        backgroundColor: '#f00',
+                                                        borderRadius: '20px',
+                                                        cursor: 'pointer'
+                                                    }}
+                                                >
+                                                    <DeleteIcon
+                                                        theme={theme}
+                                                        onClick={() => handleDeleteNote(item.id)}
+                                                        color='neutral'
+                                                    />
+                                                </Grid>                                                                                    
+                                    </ListItem>                                   
                                 ))
                             }
                         </List>
