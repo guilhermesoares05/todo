@@ -63,6 +63,9 @@ const InsertNote = () => {
             justifyContent="center"
             alignItems="center"
             direction="column"
+            style={{
+                marginTop:"25vh"
+            }}
 
         >
             <Header />
@@ -76,13 +79,13 @@ const InsertNote = () => {
                 <Box
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 2, width: '80%', },
+                        '& > :not(style)': { m: 3, width: '80%', background:"#fff", borderRadius:"5px"}
                     }}
                     noValidate
                     autoComplete="off"
                 >
                     <TextField
-                        id="standard-basic"
+                        id="outlined-basic"
                         label="Título da nota"
                         variant="standard"
                         onChange={handleChange('noteTitle')}

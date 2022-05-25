@@ -37,7 +37,10 @@ const Header = () => {
                     padding: "10px",
                     justifyContent: "space-between",
                     background: "#2e3436",
-                    alignItems: "center"
+                    alignItems: "center",
+                    position:"fixed",
+                    top:0,
+                    zIndex:"1"
                 }}>
                 {/* logo da aplicação */}
                 <Grid 
