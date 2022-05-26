@@ -72,6 +72,9 @@ const EditarNota = () => {
             justifyContent="center"
             alignItems="center"
             direction="column"
+            style={{
+                marginTop:"25vh"
+            }}
 
         >
             <Header />
