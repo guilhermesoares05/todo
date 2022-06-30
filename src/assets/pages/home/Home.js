@@ -78,7 +78,6 @@ const Home = () => {
     }
 
     return (
-
         <Grid
             container
             item
@@ -99,20 +98,20 @@ const Home = () => {
                 }}
             >
                 <Link to="/inserirNota" style={{
-                    color:"white",
-                    display:"flex",
-                    background:"#7b03fc",
-                    alignItems:"center",
-                    padding:"10px",
-                    borderRadius:"50%",
-                    position:"fixed",
-                    zIndex:"1",
-                    right:5,
-                    top:140
+                    color: "white",
+                    display: "flex",
+                    background: "#7b03fc",
+                    alignItems: "center",
+                    padding: "10px",
+                    borderRadius: "50%",
+                    position: "fixed",
+                    zIndex: "1",
+                    right: 5,
+                    top: 140
                 }}>
                     <AddBoxIcon />
                 </Link>
-                
+
             </Grid>
             {/*notas salvas*/}
             <Grid
@@ -122,11 +121,11 @@ const Home = () => {
             >
                 {
                     userNotes.length != 0 ?
-                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px',marginTop:"100px", marginBottom:"20px"}}>
+                        <List sx={{ width: '80%', bgcolor: '#BABDB6', borderRadius: '10px', marginTop: "100px", marginBottom: "20px" }}>
                             {/**Implementand map com notas do usuario */}
                             {
                                 userNotes.map((item, k) => (
-                                    <ListItem key={k} style={{ borderBottom: '1px solid #fff',justifyContent:"flex-end", flexWrap:"wrap" }} >
+                                    <ListItem key={k} style={{ borderBottom: '1px solid #fff', justifyContent: "flex-end", flexWrap: "wrap" }} >
                                         <ListItemText
                                             primary={item.title}
                                             secondary={
@@ -150,49 +149,49 @@ const Home = () => {
                                                     </Grid>
                                                 </Grid>
                                             }
-                                        /> 
-                                                <Grid
-                                                    item
-                                                    container
-                                                    justifyContent="center"
-                                                    alignItems="center"
-                                                    style={{
-                                                        width: '40px',
-                                                        height: '40px',
-                                                        marginLeft:"10px",
-                                                        backgroundColor: 'green',
-                                                        borderRadius: '20px',
-                                                        cursor: 'pointer'
-                                                    }}
-                                                >
-                                                    <Link to={'editarNota/'+item.id}>
-                                                    <EditIcon
-                                                        theme={theme}
-                                                        color='neutral'
-                                                    />                                                    
-                                                    </Link>
-                                                </Grid>                                          
-                                                <Grid
-                                                    item
-                                                    container
-                                                    justifyContent="center"
-                                                    alignItems="center"
-                                                    style={{
-                                                        width: '40px',
-                                                        height: '40px',
-                                                        marginLeft:"10px",
-                                                        backgroundColor: '#f00',
-                                                        borderRadius: '20px',
-                                                        cursor: 'pointer'
-                                                    }}
-                                                >
-                                                    <DeleteIcon
-                                                        theme={theme}
-                                                        onClick={() => handleDeleteNote(item.id)}
-                                                        color='neutral'
-                                                    />
-                                                </Grid>                                                                                    
-                                    </ListItem>                                   
+                                        />
+                                        <Grid
+                                            item
+                                            container
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            style={{
+                                                width: '40px',
+                                                height: '40px',
+                                                marginLeft: "10px",
+                                                backgroundColor: 'green',
+                                                borderRadius: '20px',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            <Link to={'editarNota/' + item.id}>
+                                                <EditIcon
+                                                    theme={theme}
+                                                    color='neutral'
+                                                />
+                                            </Link>
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            container
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            style={{
+                                                width: '40px',
+                                                height: '40px',
+                                                marginLeft: "10px",
+                                                backgroundColor: '#f00',
+                                                borderRadius: '20px',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            <DeleteIcon
+                                                theme={theme}
+                                                onClick={() => handleDeleteNote(item.id)}
+                                                color='neutral'
+                                            />
+                                        </Grid>
+                                    </ListItem>
                                 ))
                             }
                         </List>
@@ -219,8 +218,6 @@ const Home = () => {
                 </DialogActions>
             </Dialog>
         </Grid>
-
-
     );
 }
 

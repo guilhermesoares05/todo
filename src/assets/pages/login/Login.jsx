@@ -30,7 +30,6 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 //login components
 const Login = () => {
-
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
 
     useEffect(() => {
@@ -112,7 +111,7 @@ const Login = () => {
                 const token = credential.accessToken;
                 const user = result.user;
                 console.log('Credencial', credential)
-                console.log('token',token )
+                console.log('token', token)
                 console.log('user', user)
                 setDialogs({
                     ...dialogs,
@@ -259,7 +258,7 @@ const Login = () => {
                             onClick={handleLoginWithGoogle}
                         >
                             <GoogleIcon />
-                            <small style={{fontFamily:'arial'}}>Faça login com o google</small>
+                            <small style={{ fontFamily: 'arial' }}>Faça login com o google</small>
                         </Button>
                     </Grid>
                 </Grid>

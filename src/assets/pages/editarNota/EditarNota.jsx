@@ -34,8 +34,8 @@ const EditarNota = () => {
 
     //states dialog
     const [dialog, setDialog] = useState(false);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         getNote()
     }, []);
 
@@ -48,15 +48,16 @@ const EditarNota = () => {
 
     //função responsável por alterar a nota do usuario 
     const handleEditNotes = async () => {
-        if(noteTitle !== '' && noteText !== ''){
+        if (noteTitle !== '' && noteText !== '') {
             myApp.firestore().collection("notes").doc(params.idNota).update({
                 title: noteTitle,
                 text: noteText
             }).then(() => {
                 setDialog(true);
             });
-        } else {alert("Campos com preenchimento obrigatório, por favor tente novamente!")
-            
+        } else {
+            alert("Campos com preenchimento obrigatório, por favor tente novamente!")
+
         }
     }
 
@@ -73,7 +74,7 @@ const EditarNota = () => {
             alignItems="center"
             direction="column"
             style={{
-                marginTop:"25vh"
+                marginTop: "25vh"
             }}
 
         >
@@ -97,7 +98,7 @@ const EditarNota = () => {
                         id="standard-basic"
                         label="Título da nota"
                         variant="standard"
-                        onChange={(e) => {setNoteTitle(e.target.value)}}
+                        onChange={(e) => { setNoteTitle(e.target.value) }}
                         value={noteTitle}
                     />
                 </Box>
@@ -115,11 +116,11 @@ const EditarNota = () => {
                     placeholder="Digite sua nota aqui..."
                     style={{
                         width: "50%",
-                        height:'300px',
+                        height: '300px',
                         borderRadius: "5px",
                         padding: "5px",
                     }}
-                    onChange={(e) => {setNoteText(e.target.value)}}
+                    onChange={(e) => { setNoteText(e.target.value) }}
                     value={noteText}
                 />
             </Grid>

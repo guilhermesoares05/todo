@@ -31,7 +31,6 @@ import "firebase/compat/auth";
 
 //cadastro components
 const Cadastro = () => {
-
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
     useEffect(() => {
         if (userId !== null) {

@@ -20,11 +20,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import myApp from "../../core/firebaseConfig"
 import "firebase/compat/firestore";
 
-
 const InsertNote = () => {
-
     const [userId, setUserId] = useState(localStorage.getItem('currentUserDynamicsNotepad'));
-
     const [values, setValues] = useState({
         noteTitle: '',
         noteText: ''
@@ -38,7 +35,7 @@ const InsertNote = () => {
     };
 
     const handleAddNotes = async () => {
-        if(values.noteTitle !== '' && values.noteText !== ''){
+        if (values.noteTitle !== '' && values.noteText !== '') {
             myApp.firestore().collection("notes").add({
                 uid: userId,
                 title: values.noteTitle,
@@ -57,16 +54,14 @@ const InsertNote = () => {
     }
 
     return (
-
         <Grid
             container
             justifyContent="center"
             alignItems="center"
             direction="column"
             style={{
-                marginTop:"25vh"
+                marginTop: "25vh"
             }}
-
         >
             <Header />
             {/*titulo da nota */}
@@ -79,7 +74,7 @@ const InsertNote = () => {
                 <Box
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 3, width: '80%', background:"#fff", borderRadius:"5px"}
+                        '& > :not(style)': { m: 3, width: '80%', background: "#fff", borderRadius: "5px" }
                     }}
                     noValidate
                     autoComplete="off"
@@ -94,7 +89,6 @@ const InsertNote = () => {
             </Grid>
 
             {/* texto da nota */}
-
             <Grid
                 container
                 item
@@ -106,7 +100,7 @@ const InsertNote = () => {
                     placeholder="Digite sua nota aqui..."
                     style={{
                         width: "50%",
-                        height:'300px',
+                        height: '300px',
                         borderRadius: "5px",
                         padding: "5px",
                     }}
@@ -117,7 +111,6 @@ const InsertNote = () => {
                 container
                 item
                 justifyContent="center"
-
             >
                 <Button
                     color='primary'

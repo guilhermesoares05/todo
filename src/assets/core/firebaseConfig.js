@@ -1,5 +1,4 @@
 import firebase from "firebase/compat/app";
-
 var config = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
@@ -9,7 +8,5 @@ var config = {
   appId: process.env.REACT_APP_FIREBASE_APPID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 };
-
 const myApp = firebase.initializeApp(config);
-
 export default myApp;
